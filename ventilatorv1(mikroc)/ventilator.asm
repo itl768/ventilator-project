@@ -801,28 +801,28 @@ _main:
 	CLRF       PORTD+0
 ;ventilator.c,248 :: 		TRISD=0x00;  // set portD as outputs
 	CLRF       TRISD+0
-;ventilator.c,249 :: 		Sound_Init(&PORTD, 2);
-	MOVLW      PORTD+0
+;ventilator.c,250 :: 		Sound_Init(&PORTC, 2);
+	MOVLW      PORTC+0
 	MOVWF      FARG_Sound_Init_snd_port+0
 	MOVLW      2
 	MOVWF      FARG_Sound_Init_snd_pin+0
 	CALL       _Sound_Init+0
-;ventilator.c,251 :: 		selftest();//do self test
+;ventilator.c,252 :: 		selftest();//do self test
 	CALL       _selftest+0
-;ventilator.c,255 :: 		while(1){
+;ventilator.c,256 :: 		while(1){
 L_main48:
-;ventilator.c,257 :: 		switches();
+;ventilator.c,258 :: 		switches();
 	CALL       _switches+0
-;ventilator.c,258 :: 		if(startstatus){
+;ventilator.c,259 :: 		if(startstatus){
 	MOVF       _startstatus+0, 0
 	IORWF      _startstatus+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_main50
-;ventilator.c,266 :: 		}
+;ventilator.c,267 :: 		}
 L_main50:
-;ventilator.c,268 :: 		}
-	GOTO       L_main48
 ;ventilator.c,269 :: 		}
+	GOTO       L_main48
+;ventilator.c,270 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main

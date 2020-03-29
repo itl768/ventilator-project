@@ -1,4 +1,4 @@
- //sensor inputs
+ // it define sensor inputs
 #define sensor_a PORTC.B0
 #define sensor_b1 PORTC.B1
 #define sensor_b2 PORTC.B2
@@ -246,7 +246,8 @@ PORTC=0;  // set portC as digital
 TRISC=0xff;  // set portC as inputs
 PORTD=0;  // set portD as digital
 TRISD=0x00;  // set portD as outputs
-Sound_Init(&PORTD, 2);
+//Sound_Init(&PORTD, 2);
+Sound_Init(&PORTC, 2);
 
 selftest();//do self test
 

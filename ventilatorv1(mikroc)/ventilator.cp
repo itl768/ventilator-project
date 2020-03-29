@@ -1,5 +1,5 @@
-#line 1 "D:/ventilator project/ventilator.c"
-#line 22 "D:/ventilator project/ventilator.c"
+#line 1 "C:/Users/acer/Documents/GitHub/ventilator-project/ventilatorv1(mikroc)/ventilator.c"
+#line 22 "C:/Users/acer/Documents/GitHub/ventilator-project/ventilatorv1(mikroc)/ventilator.c"
 unsigned int bpmv=12;
 unsigned int vol =450;
 
@@ -227,7 +227,8 @@ PORTC=0;
 TRISC=0xff;
 PORTD=0;
 TRISD=0x00;
-Sound_Init(&PORTD, 2);
+
+Sound_Init(&PORTC, 2);
 
 selftest();
 
