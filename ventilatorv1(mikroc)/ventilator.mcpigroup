@@ -1,0 +1,6 @@
+[PROJECTS]
+Count=2
+Project0=..\workshop\ventilator--master\ventilator--master\mikroc\ventilatorv1.mcppi
+Project1=ventilator.mcppi
+[ActiveProject]
+Index=1
