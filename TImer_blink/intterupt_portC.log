@@ -1,0 +1,6 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP16F1939 -DL -O11111114 -fo8 -N"C:\Users\acer\Documents\GitHub\ventilator-project\TImer_blink\intterupt_portC.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16_Enh\" -SP"C:\Users\acer\Documents\GitHub\ventilator-project\TImer_blink\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16_Enh\" -IP"C:\Users\acer\Documents\GitHub\ventilator-project\TImer_blink\" "intterupt_portC.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Button.mcl" "__Lib_Sound.mcl"	 
+hint: 0	1139	Available RAM: 1020 [bytes], Available ROM: 16384 [bytes]	 
+error: 0	340	File 'intterupt_portC.c' not found	 
+diagnostics: 0	127	All files Compiled in 0 ms	 
+error: 0	357	main function is not defined	main function is not defined
+error: 0	102	Finished (with errors): 30 Mar 2020, 18:26:14	intterupt_portC.mcppi

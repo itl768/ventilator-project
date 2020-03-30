@@ -17,10 +17,15 @@ void main() {
  TRISC = 0x00;     // PORTC O/P
  LED = 0;
  Num = 0;
- OPTION_REG = 0x07; // Prescaler (1:256) is assigned to the timer TMR0
+ OPTION_REG = 0x07; // Prescaler (1:256) is assigned to the timer TMR0       p
  TMR0 = 39;          // Timer T0 counts from 39 to 255
  INTCON = 0xA0;     // Enable interrupt TMR0 and Global Interrupts
+
+ Sound_Init(&PORTC, 2);
+
  do {
- // You main programs goes here
+ if (Button(&PORTB, 5, 100, 1)) {               // Detect logical zero
+      Sound_Play(1318, 50);                              // Update flag
+    }
  } while(1);  // infinite loop
 }
