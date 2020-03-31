@@ -21,11 +21,12 @@ void main() {
  TMR0 = 39;          // Timer T0 counts from 39 to 255
  INTCON = 0xA0;     // Enable interrupt TMR0 and Global Interrupts
 
- Sound_Init(&PORTC, 2);
+ Sound_Init(&PORTE, 1);
 
  do {
  if (Button(&PORTB, 5, 100, 1)) {               // Detect logical zero
-      Sound_Play(1318, 50);                              // Update flag
+      Sound_Play(1318, 50); 
+                                    // Update flag
     }
  } while(1);  // infinite loop
 }

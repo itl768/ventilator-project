@@ -22,11 +22,12 @@ void main() {
  TMR0 = 39;
  INTCON = 0xA0;
 
- Sound_Init(&PORTC, 2);
+ Sound_Init(&PORTE, 1);
 
  do {
  if (Button(&PORTB, 5, 100, 1)) {
  Sound_Play(1318, 50);
+
  }
  } while(1);
 }

@@ -39,7 +39,7 @@ _main:
 	BCF        RC0_bit+0, BitPos(RC0_bit+0)
 ;Iterrupt_blink.c,19 :: 		Num = 0;
 	CLRF       _Num+0
-;Iterrupt_blink.c,20 :: 		OPTION_REG = 0x07; // Prescaler (1:256) is assigned to the timer TMR0
+;Iterrupt_blink.c,20 :: 		OPTION_REG = 0x07; // Prescaler (1:256) is assigned to the timer TMR0       p
 	MOVLW      7
 	MOVWF      OPTION_REG+0
 ;Iterrupt_blink.c,21 :: 		TMR0 = 39;          // Timer T0 counts from 39 to 255
@@ -48,12 +48,12 @@ _main:
 ;Iterrupt_blink.c,22 :: 		INTCON = 0xA0;     // Enable interrupt TMR0 and Global Interrupts
 	MOVLW      160
 	MOVWF      INTCON+0
-;Iterrupt_blink.c,24 :: 		Sound_Init(&PORTC, 2);
-	MOVLW      PORTC+0
+;Iterrupt_blink.c,24 :: 		Sound_Init(&PORTE, 1);
+	MOVLW      PORTE+0
 	MOVWF      FARG_Sound_Init_snd_port+0
-	MOVLW      hi_addr(PORTC+0)
+	MOVLW      hi_addr(PORTE+0)
 	MOVWF      FARG_Sound_Init_snd_port+1
-	MOVLW      2
+	MOVLW      1
 	MOVWF      FARG_Sound_Init_snd_pin+0
 	CALL       _Sound_Init+0
 ;Iterrupt_blink.c,26 :: 		do {
@@ -73,7 +73,7 @@ L_main1:
 	MOVF       R0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_main4
-;Iterrupt_blink.c,28 :: 		Sound_Play(1318, 50);                              // Update flag
+;Iterrupt_blink.c,28 :: 		Sound_Play(1318, 50);
 	MOVLW      38
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      5
@@ -83,11 +83,11 @@ L_main1:
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;Iterrupt_blink.c,29 :: 		}
+;Iterrupt_blink.c,30 :: 		}
 L_main4:
-;Iterrupt_blink.c,30 :: 		} while(1);  // infinite loop
+;Iterrupt_blink.c,31 :: 		} while(1);  // infinite loop
 	GOTO       L_main1
-;Iterrupt_blink.c,31 :: 		}
+;Iterrupt_blink.c,32 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main
