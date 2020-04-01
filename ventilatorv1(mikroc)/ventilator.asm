@@ -783,13 +783,13 @@ L_end_selftest:
 _InitTimer0:
 
 ;ventilator.c,274 :: 		void InitTimer0(){
-;ventilator.c,275 :: 		OPTION_REG	 = 0x84;
+;ventilator.c,275 :: 		OPTION_REG         = 0x84;
 	MOVLW      132
 	MOVWF      OPTION_REG+0
-;ventilator.c,276 :: 		TMR0		 = 100;
+;ventilator.c,276 :: 		TMR0                 = 100;
 	MOVLW      100
 	MOVWF      TMR0+0
-;ventilator.c,277 :: 		INTCON	 = 0xA0;
+;ventilator.c,277 :: 		INTCON         = 0xA0;
 	MOVLW      160
 	MOVWF      INTCON+0
 ;ventilator.c,278 :: 		}
@@ -810,9 +810,9 @@ _Interrupt:
 ;ventilator.c,281 :: 		if (TMR0IF_bit){
 	BTFSS      TMR0IF_bit+0, BitPos(TMR0IF_bit+0)
 	GOTO       L_Interrupt48
-;ventilator.c,282 :: 		TMR0IF_bit	 = 0;
+;ventilator.c,282 :: 		TMR0IF_bit         = 0;
 	BCF        TMR0IF_bit+0, BitPos(TMR0IF_bit+0)
-;ventilator.c,283 :: 		TMR0		 = 100;
+;ventilator.c,283 :: 		TMR0                 = 100;
 	MOVLW      100
 	MOVWF      TMR0+0
 ;ventilator.c,285 :: 		millis_count++;
@@ -964,13 +964,16 @@ L_main53:
 L__main146:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main54
+;ventilator.c,331 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,329 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,331 :: 		}
+;ventilator.c,332 :: 		}
 	GOTO       L_main53
 L_main54:
-;ventilator.c,332 :: 		for(i=0;i<count;i++){
+;ventilator.c,333 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main56:
@@ -983,13 +986,16 @@ L_main56:
 L__main147:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main57
+;ventilator.c,335 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,333 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,334 :: 		}
+;ventilator.c,336 :: 		}
 	GOTO       L_main56
 L_main57:
-;ventilator.c,335 :: 		for(i=0;i<count;i++){
+;ventilator.c,337 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main59:
@@ -1002,13 +1008,16 @@ L_main59:
 L__main148:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main60
+;ventilator.c,339 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,337 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,337 :: 		}
+;ventilator.c,340 :: 		}
 	GOTO       L_main59
 L_main60:
-;ventilator.c,338 :: 		for(i=0;i<count;i++){
+;ventilator.c,341 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main62:
@@ -1021,13 +1030,16 @@ L_main62:
 L__main149:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main63
+;ventilator.c,343 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,341 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,340 :: 		}
+;ventilator.c,344 :: 		}
 	GOTO       L_main62
 L_main63:
-;ventilator.c,341 :: 		for(i=0;i<count;i++){
+;ventilator.c,345 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main65:
@@ -1040,13 +1052,16 @@ L_main65:
 L__main150:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main66
+;ventilator.c,347 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,345 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,343 :: 		}
+;ventilator.c,348 :: 		}
 	GOTO       L_main65
 L_main66:
-;ventilator.c,344 :: 		for(i=0;i<count;i++){
+;ventilator.c,349 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main68:
@@ -1059,13 +1074,16 @@ L_main68:
 L__main151:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main69
+;ventilator.c,351 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,349 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,346 :: 		}
+;ventilator.c,352 :: 		}
 	GOTO       L_main68
 L_main69:
-;ventilator.c,347 :: 		for(i=0;i<count;i++){
+;ventilator.c,353 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main71:
@@ -1078,13 +1096,16 @@ L_main71:
 L__main152:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main72
+;ventilator.c,355 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,353 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,349 :: 		}
+;ventilator.c,356 :: 		}
 	GOTO       L_main71
 L_main72:
-;ventilator.c,350 :: 		for(i=0;i<count;i++){
+;ventilator.c,357 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main74:
@@ -1097,13 +1118,16 @@ L_main74:
 L__main153:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main75
+;ventilator.c,359 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,357 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,352 :: 		}
+;ventilator.c,360 :: 		}
 	GOTO       L_main74
 L_main75:
-;ventilator.c,353 :: 		for(i=0;i<count;i++){
+;ventilator.c,361 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main77:
@@ -1116,13 +1140,16 @@ L_main77:
 L__main154:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main78
+;ventilator.c,363 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,361 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,355 :: 		}
+;ventilator.c,364 :: 		}
 	GOTO       L_main77
 L_main78:
-;ventilator.c,356 :: 		for(i=0;i<count;i++){
+;ventilator.c,365 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main80:
@@ -1135,13 +1162,16 @@ L_main80:
 L__main155:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main81
+;ventilator.c,367 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,365 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,358 :: 		}
+;ventilator.c,368 :: 		}
 	GOTO       L_main80
 L_main81:
-;ventilator.c,359 :: 		for(i=0;i<count;i++){
+;ventilator.c,369 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main83:
@@ -1154,10 +1184,13 @@ L_main83:
 L__main156:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main84
+;ventilator.c,371 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,369 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,361 :: 		} for(i=0;i<count;i++){
+;ventilator.c,372 :: 		} for(i=0;i<count;i++){
 	GOTO       L_main83
 L_main84:
 	CLRF       _i+0
@@ -1172,13 +1205,16 @@ L_main86:
 L__main157:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main87
+;ventilator.c,374 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,372 :: 		} for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,363 :: 		}
+;ventilator.c,375 :: 		}
 	GOTO       L_main86
 L_main87:
-;ventilator.c,364 :: 		for(i=0;i<count;i++){
+;ventilator.c,376 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main89:
@@ -1191,10 +1227,13 @@ L_main89:
 L__main158:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main90
+;ventilator.c,378 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,376 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,366 :: 		} for(i=0;i<count;i++){
+;ventilator.c,379 :: 		} for(i=0;i<count;i++){
 	GOTO       L_main89
 L_main90:
 	CLRF       _i+0
@@ -1209,10 +1248,13 @@ L_main92:
 L__main159:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main93
+;ventilator.c,381 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,379 :: 		} for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,368 :: 		} for(i=0;i<count;i++){
+;ventilator.c,382 :: 		} for(i=0;i<count;i++){
 	GOTO       L_main92
 L_main93:
 	CLRF       _i+0
@@ -1227,13 +1269,16 @@ L_main95:
 L__main160:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main96
+;ventilator.c,384 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,382 :: 		} for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,370 :: 		}
+;ventilator.c,385 :: 		}
 	GOTO       L_main95
 L_main96:
-;ventilator.c,371 :: 		for(i=0;i<count;i++){
+;ventilator.c,386 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main98:
@@ -1246,13 +1291,16 @@ L_main98:
 L__main161:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main99
+;ventilator.c,388 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,386 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,373 :: 		}
+;ventilator.c,389 :: 		}
 	GOTO       L_main98
 L_main99:
-;ventilator.c,374 :: 		for(i=0;i<count;i++){
+;ventilator.c,390 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main101:
@@ -1265,10 +1313,13 @@ L_main101:
 L__main162:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main102
+;ventilator.c,392 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,390 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,376 :: 		} for(i=0;i<count;i++){
+;ventilator.c,393 :: 		} for(i=0;i<count;i++){
 	GOTO       L_main101
 L_main102:
 	CLRF       _i+0
@@ -1283,10 +1334,13 @@ L_main104:
 L__main163:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main105
+;ventilator.c,395 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,393 :: 		} for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,378 :: 		} for(i=0;i<count;i++){
+;ventilator.c,396 :: 		} for(i=0;i<count;i++){
 	GOTO       L_main104
 L_main105:
 	CLRF       _i+0
@@ -1301,17 +1355,20 @@ L_main107:
 L__main164:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main108
+;ventilator.c,398 :: 		dcv1=0;
+	BCF        PORTD+0, 0
+;ventilator.c,396 :: 		} for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,380 :: 		}
+;ventilator.c,399 :: 		}
 	GOTO       L_main107
 L_main108:
-;ventilator.c,382 :: 		s2v=0;
+;ventilator.c,401 :: 		s2v=0;
 	BCF        PORTD+0, 5
-;ventilator.c,383 :: 		dcv1=0;
+;ventilator.c,402 :: 		dcv1=0;
 	BCF        PORTD+0, 0
-;ventilator.c,387 :: 		if (millis()-time1>=100)
+;ventilator.c,406 :: 		if (millis()-time1>=100)
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      R4+0
@@ -1352,11 +1409,11 @@ L_main108:
 L__main165:
 	BTFSS      STATUS+0, 0
 	GOTO       L_main110
-;ventilator.c,389 :: 		testl=1  ;
+;ventilator.c,408 :: 		testl=1  ;
 	BSF        PORTD+0, 3
-;ventilator.c,390 :: 		startl=0 ;
+;ventilator.c,409 :: 		startl=0 ;
 	BCF        PORTD+0, 4
-;ventilator.c,391 :: 		time1=millis();
+;ventilator.c,410 :: 		time1=millis();
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      _time1+0
@@ -1366,14 +1423,14 @@ L__main165:
 	MOVWF      _time1+2
 	MOVF       R0+3, 0
 	MOVWF      _time1+3
-;ventilator.c,392 :: 		}
+;ventilator.c,411 :: 		}
 	GOTO       L_main111
 L_main110:
-;ventilator.c,395 :: 		testl=0  ;
+;ventilator.c,414 :: 		testl=0  ;
 	BCF        PORTD+0, 3
-;ventilator.c,396 :: 		startl=1 ;
+;ventilator.c,415 :: 		startl=1 ;
 	BSF        PORTD+0, 4
-;ventilator.c,397 :: 		time1=millis();
+;ventilator.c,416 :: 		time1=millis();
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      _time1+0
@@ -1383,11 +1440,11 @@ L_main110:
 	MOVWF      _time1+2
 	MOVF       R0+3, 0
 	MOVWF      _time1+3
-;ventilator.c,398 :: 		}
+;ventilator.c,417 :: 		}
 L_main111:
-;ventilator.c,399 :: 		}
+;ventilator.c,418 :: 		}
 	GOTO       L_main51
-;ventilator.c,400 :: 		}
+;ventilator.c,419 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main

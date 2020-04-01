@@ -272,15 +272,15 @@ unsigned long time1,time2;
 
 
 void InitTimer0(){
-  OPTION_REG	 = 0x84;
-  TMR0		 = 100;
-  INTCON	 = 0xA0;
+  OPTION_REG         = 0x84;
+  TMR0                 = 100;
+  INTCON         = 0xA0;
 }
 
 void Interrupt(){
   if (TMR0IF_bit){
-    TMR0IF_bit	 = 0;
-    TMR0		 = 100;
+    TMR0IF_bit         = 0;
+    TMR0                 = 100;
 
     millis_count++;
 
@@ -327,56 +327,75 @@ switches();
  s2v=1;
  dcv1=1;
  for(i=0;i<count;i++){
-    //loop for
+    //loop for p
+     dcv1=0;
  }
   for(i=0;i<count;i++){
     //loop for p1
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for t1
+    dcv1=0;
  }
   for(i=0;i<count;i++){
     //loop for   h
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for    a1
+    dcv1=0;
  }
   for(i=0;i<count;i++){
     //loop for      a2
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for        p3
+    dcv1=0;
  }
   for(i=0;i<count;i++){
     //loop for          s1
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for            s2
+    dcv1=0;
  }
    for(i=0;i<count;i++){
     //loop for     s4
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for s5
+    dcv1=0;
  } for(i=0;i<count;i++){
     //loop for   s6
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for     s8
+    dcv1=0;
  } for(i=0;i<count;i++){
     //loop for       a2
+    dcv1=1;
  } for(i=0;i<count;i++){
     //loop for         a3
+    dcv1=0;
  }
   for(i=0;i<count;i++){
     //loop for           s9
+    dcv1=1;
  }
   for(i=0;i<count;i++){
     //loop for         p1
+    dcv1=0;
  } for(i=0;i<count;i++){
     //loop for           p2
+    dcv1=1;
  } for(i=0;i<count;i++){
     //loop for             s1o
+    dcv1=0;
  }
 
   s2v=0;

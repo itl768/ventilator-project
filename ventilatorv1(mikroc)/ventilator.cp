@@ -286,55 +286,74 @@ switches();
   PORTD.F0 =1;
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  } for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  } for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  } for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  }
  for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  } for(i=0;i<count;i++){
 
+  PORTD.F0 =1;
  } for(i=0;i<count;i++){
 
+  PORTD.F0 =0;
  }
 
   PORTD.F5 =0;
