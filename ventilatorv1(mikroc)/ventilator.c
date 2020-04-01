@@ -1,3 +1,25 @@
+ /*
+ **************READ ME**********
+ this is a test sketch to test cycle time of pic 16f877a
+there are 20 for loops for each sensor
+by changing "count" variable you can set how many times each for loop should run
+
+start led and test led will indicate the cycle time
+if the cycle time is less than 100ms start led will turn on
+if cycle time is more than 100ms test led will turn on
+
+after powering up it will take few seconds to go to the main loop then the results can be obtained.
+ 
+ 
+ */
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  //sensor inputs
 #define sensor_a PORTC.B0
 #define sensor_b1 PORTC.B1
@@ -23,7 +45,7 @@
 unsigned int bpmv=12;   //defualt bpm
 unsigned int vol =450;  //default volume
 unsigned int i =0;  //loop
-unsigned int count =5;  //count value
+unsigned int count =10;  //count value
 
 
 
@@ -136,12 +158,12 @@ void switches(){
     //start stop button
      if ( !startstatus  && Button(&PORTC, 6, 100, 0)) {               // Detect logical zero
       Sound_Play(1000, 100);                         //play alarm
-      startl=1;                                      //led indicator
+      //startl=1;                                      //led indicator
       startstatus = 1;                              // Update flag
     }
     if (startstatus && Button(&PORTC, 7, 100, 0)) {   // Detect logical zero
      Sound_Play(500, 100);                         //play alarm
-     startl=0;                                    //led indicator
+    // startl=0;                                    //led indicator
          startstatus = 0;               // Update flag
     }
 
@@ -299,8 +321,6 @@ Delay_ms(100);
 time1=millis();
 while(1){
 
- startl=1;
-testl=1;
 switches();
 //if(startstatus){
 //run system
@@ -364,13 +384,13 @@ switches();
 
 
 //}
- if (millis()-time1>100)
+ if (millis()-time1>=100)
    {
    testl=1  ;
    startl=0 ;
      time1=millis();
    }
-    if (millis()-time1<=100)
+  else
    {
    testl=0  ;
    startl=1 ;

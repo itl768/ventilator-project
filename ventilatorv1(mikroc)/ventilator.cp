@@ -1,9 +1,9 @@
 #line 1 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
-#line 23 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
+#line 45 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
 unsigned int bpmv=12;
 unsigned int vol =450;
 unsigned int i =0;
-unsigned int count =5;
+unsigned int count =10;
 
 
 
@@ -116,12 +116,12 @@ void switches(){
 
  if ( !startstatus && Button(&PORTC, 6, 100, 0)) {
  Sound_Play(1000, 100);
-  PORTD.F4 =1;
+
  startstatus = 1;
  }
  if (startstatus && Button(&PORTC, 7, 100, 0)) {
  Sound_Play(500, 100);
-  PORTD.F4 =0;
+
  startstatus = 0;
  }
 
@@ -279,8 +279,6 @@ Delay_ms(100);
 time1=millis();
 while(1){
 
-  PORTD.F4 =1;
- PORTD.F3 =1;
 switches();
 
 
@@ -344,13 +342,13 @@ switches();
 
 
 
- if (millis()-time1>100)
+ if (millis()-time1>=100)
  {
   PORTD.F3 =1 ;
   PORTD.F4 =0 ;
  time1=millis();
  }
- if (millis()-time1<=100)
+ else
  {
   PORTD.F3 =0 ;
   PORTD.F4 =1 ;
