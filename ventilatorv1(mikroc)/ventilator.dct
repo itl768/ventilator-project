@@ -134,6 +134,7 @@ cmif
 cmif_bit
 comfrem
 compare_double
+count
 cren
 cren_bit
 csrc
@@ -220,6 +221,7 @@ go_done
 go_done_bit
 go_not_done
 go_not_done_bit
+i
 ibf
 ibf_bit
 ibf_trise_bit
@@ -229,12 +231,14 @@ ibov_trise_bit
 ics_auto
 ics_off
 indf
+inittimer0
 int2double
 intcon
 inte
 inte_bit
 intedg
 intedg_bit
+interrupt
 intf
 intf_bit
 irp
@@ -244,6 +248,8 @@ led
 longint2double
 longword2double
 main
+millis
+millis_count
 mul_16x16_s
 mul_16x16_u
 mul_32x32_fp
@@ -527,6 +533,8 @@ t2ckps0_bit
 t2ckps1
 t2ckps1_bit
 t2con
+time1
+time2
 tmr0
 tmr0ie
 tmr0ie_bit

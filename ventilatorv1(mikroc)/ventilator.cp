@@ -1,7 +1,9 @@
-#line 1 "D:/ventilator project/ventilator.c"
-#line 22 "D:/ventilator project/ventilator.c"
+#line 1 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
+#line 23 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
 unsigned int bpmv=12;
 unsigned int vol =450;
+unsigned int i =0;
+unsigned int count =5;
 
 
 
@@ -219,6 +221,42 @@ Sound_Play(500, 500);
 
 
 
+unsigned long millis_count=0;
+
+unsigned long time1,time2;
+
+
+
+
+
+void InitTimer0(){
+ OPTION_REG = 0x84;
+ TMR0 = 100;
+ INTCON = 0xA0;
+}
+
+void Interrupt(){
+ if (TMR0IF_bit){
+ TMR0IF_bit = 0;
+ TMR0 = 100;
+
+ millis_count++;
+
+ }
+
+}
+
+unsigned long millis()
+{
+ return(millis_count);
+}
+
+
+
+
+
+
+
 void main()
 {
 PORTB=0;
@@ -227,24 +265,96 @@ PORTC=0;
 TRISC=0xff;
 PORTD=0;
 TRISD=0x00;
+InitTimer0();
+
+
 Sound_Init(&PORTD, 2);
 
 selftest();
+Delay_ms(100);
+ PORTD.F4 =0;
+ PORTD.F3 =0;
+Delay_ms(100);
 
-
-
+time1=millis();
 while(1){
 
+  PORTD.F4 =1;
+ PORTD.F3 =1;
 switches();
-if(startstatus){
+
+
+  PORTD.F5 =1;
+  PORTD.F0 =1;
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ } for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ } for(i=0;i<count;i++){
+
+ } for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ }
+ for(i=0;i<count;i++){
+
+ } for(i=0;i<count;i++){
+
+ } for(i=0;i<count;i++){
+
+ }
+
+  PORTD.F5 =0;
+  PORTD.F0 =0;
 
 
 
-
-
-
-
-}
-
+ if (millis()-time1>100)
+ {
+  PORTD.F3 =1 ;
+  PORTD.F4 =0 ;
+ time1=millis();
+ }
+ if (millis()-time1<=100)
+ {
+  PORTD.F3 =0 ;
+  PORTD.F4 =1 ;
+ time1=millis();
+ }
 }
 }

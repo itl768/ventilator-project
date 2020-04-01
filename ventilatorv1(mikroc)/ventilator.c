@@ -13,6 +13,7 @@
 #define dcv2 PORTD.F1
 #define testl PORTD.F3
 #define startl PORTD.F4
+#define s2v PORTD.F5
 
 //shift register pin confguration
 #define SHIFT_CLOCK PORTB.B2
@@ -21,6 +22,8 @@
 
 unsigned int bpmv=12;   //defualt bpm
 unsigned int vol =450;  //default volume
+unsigned int i =0;  //loop
+unsigned int count =5;  //count value
 
 
 
@@ -235,6 +238,42 @@ Sound_Play(500, 500);
 }
 
 
+// timer function to calculate cycle time
+
+
+unsigned long millis_count=0;
+
+unsigned long time1,time2;
+
+//Timer0
+//Prescaler 1:32; TMR0 Preload = 100; Actual Interrupt Time : 998,4 us
+
+
+void InitTimer0(){
+  OPTION_REG	 = 0x84;
+  TMR0		 = 100;
+  INTCON	 = 0xA0;
+}
+
+void Interrupt(){
+  if (TMR0IF_bit){
+    TMR0IF_bit	 = 0;
+    TMR0		 = 100;
+
+    millis_count++;
+
+  }
+
+}
+
+unsigned long millis()
+{
+  return(millis_count);
+}
+
+
+
+
 
 
 
@@ -246,24 +285,96 @@ PORTC=0;  // set portC as digital
 TRISC=0xff;  // set portC as inputs
 PORTD=0;  // set portD as digital
 TRISD=0x00;  // set portD as outputs
+InitTimer0();//inica conte timer cada milisegundo
+
+
 Sound_Init(&PORTD, 2);
 
 selftest();//do self test
+Delay_ms(100);
+startl=0;
+testl=0;
+Delay_ms(100);
 
-
-
+time1=millis();
 while(1){
 
+ startl=1;
+testl=1;
 switches();
-if(startstatus){
-
+//if(startstatus){
 //run system
+ s2v=1;
+ dcv1=1;
+ for(i=0;i<count;i++){
+    //loop for
+ }
+  for(i=0;i<count;i++){
+    //loop for p1
+ }
+  for(i=0;i<count;i++){
+    //loop for t1
+ }
+  for(i=0;i<count;i++){
+    //loop for   h
+ }
+  for(i=0;i<count;i++){
+    //loop for    a1
+ }
+  for(i=0;i<count;i++){
+    //loop for      a2
+ }
+  for(i=0;i<count;i++){
+    //loop for        p3
+ }
+  for(i=0;i<count;i++){
+    //loop for          s1
+ }
+  for(i=0;i<count;i++){
+    //loop for            s2
+ }
+   for(i=0;i<count;i++){
+    //loop for     s4
+ }
+  for(i=0;i<count;i++){
+    //loop for s5
+ } for(i=0;i<count;i++){
+    //loop for   s6
+ }
+  for(i=0;i<count;i++){
+    //loop for     s8
+ } for(i=0;i<count;i++){
+    //loop for       a2
+ } for(i=0;i<count;i++){
+    //loop for         a3
+ }
+  for(i=0;i<count;i++){
+    //loop for           s9
+ }
+  for(i=0;i<count;i++){
+    //loop for         p1
+ } for(i=0;i<count;i++){
+    //loop for           p2
+ } for(i=0;i<count;i++){
+    //loop for             s1o
+ }
+
+  s2v=0;
+ dcv1=0;
 
 
-
-
-
-}
-
+//}
+ if (millis()-time1>100)
+   {
+   testl=1  ;
+   startl=0 ;
+     time1=millis();
+   }
+    if (millis()-time1<=100)
+   {
+   testl=0  ;
+   startl=1 ;
+     time1=millis();
+   }
 }
 }

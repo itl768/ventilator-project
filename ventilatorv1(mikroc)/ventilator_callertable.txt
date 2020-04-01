@@ -1,6 +1,7 @@
 main
 	__CC2DW
 		____DoICP
+	InitTimer0
 	Sound_Init
 	selftest
 		Sound_Play
@@ -9,6 +10,7 @@ main
 			Div_32x32_U
 			Div_16X16_U
 			Delay_Cyc
+	millis
 	switches
 		Button
 			Delay_500us
@@ -20,3 +22,4 @@ main
 			Delay_Cyc
 		shiftdata595
 		latch595
+Interrupt
