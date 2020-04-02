@@ -12,10 +12,10 @@ L_shiftdata5950:
 	MOVF       R4+1, 0
 	SUBLW      0
 	BTFSS      STATUS+0, 2
-	GOTO       L__shiftdata595119
+	GOTO       L__shiftdata595113
 	MOVF       R4+0, 0
 	SUBLW      0
-L__shiftdata595119:
+L__shiftdata595113:
 	BTFSC      STATUS+0, 0
 	GOTO       L_shiftdata5951
 ;ventilator.c,68 :: 		SHIFT_DATA=_shiftdata[i-1]; //  send array value
@@ -35,12 +35,12 @@ L__shiftdata595119:
 	ADDWF      FARG_shiftdata595__shiftdata+0, 0
 	MOVWF      FSR
 	BTFSC      INDF+0, 0
-	GOTO       L__shiftdata595120
+	GOTO       L__shiftdata595114
 	BCF        PORTB+0, 0
-	GOTO       L__shiftdata595121
-L__shiftdata595120:
+	GOTO       L__shiftdata595115
+L__shiftdata595114:
 	BSF        PORTB+0, 0
-L__shiftdata595121:
+L__shiftdata595115:
 ;ventilator.c,69 :: 		SHIFT_CLOCK = 1;
 	BSF        PORTB+0, 2
 ;ventilator.c,70 :: 		Delay_us(1);
@@ -85,12 +85,12 @@ L_end_latch595:
 _switches:
 
 ;ventilator.c,85 :: 		void switches(){
-;ventilator.c,87 :: 		if (Button(&PORTB, 6, 100, 0)) {               // Detect logical zero
+;ventilator.c,87 :: 		if (Button(&PORTB, 6, 1, 0)) {               // Detect logical zero
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      6
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
@@ -101,14 +101,14 @@ _switches:
 	BSF        _oldbpmup+0, BitPos(_oldbpmup+0)
 ;ventilator.c,89 :: 		}
 L_switches2:
-;ventilator.c,90 :: 		if (oldbpmup && Button(&PORTB, 6, 100, 1)) {   // Detect zero-to-one transition
+;ventilator.c,90 :: 		if (oldbpmup && Button(&PORTB, 6, 1, 1)) {   // Detect zero-to-one transition
 	BTFSS      _oldbpmup+0, BitPos(_oldbpmup+0)
 	GOTO       L_switches5
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      6
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	MOVLW      1
 	MOVWF      FARG_Button_active_state+0
@@ -116,31 +116,21 @@ L_switches2:
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches5
-L__switches117:
+L__switches111:
 ;ventilator.c,91 :: 		oldbpmup = 0;                            // Update flag
 	BCF        _oldbpmup+0, BitPos(_oldbpmup+0)
 ;ventilator.c,92 :: 		bpmv++;                                //increment bpm level
 	INCF       _bpmv+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _bpmv+1, 1
-;ventilator.c,93 :: 		Sound_Play(1318, 50);
-	MOVLW      38
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      5
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      50
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
 ;ventilator.c,94 :: 		if(bpmv>16){                     //limit bpm value
 	MOVF       _bpmv+1, 0
 	SUBLW      0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches124
+	GOTO       L__switches118
 	MOVF       _bpmv+0, 0
 	SUBLW      16
-L__switches124:
+L__switches118:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches6
 ;ventilator.c,95 :: 		bpmv=16;
@@ -154,10 +144,10 @@ L_switches6:
 	MOVLW      0
 	SUBWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches125
+	GOTO       L__switches119
 	MOVLW      12
 	SUBWF      _bpmv+0, 0
-L__switches125:
+L__switches119:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches7
 ;ventilator.c,98 :: 		bpmv=12;
@@ -169,12 +159,12 @@ L__switches125:
 L_switches7:
 ;ventilator.c,102 :: 		}
 L_switches5:
-;ventilator.c,104 :: 		if (Button(&PORTB, 7, 100, 0)) {               // Detect logical zero
+;ventilator.c,104 :: 		if (Button(&PORTB, 7, 1, 0)) {               // Detect logical zero
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      7
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
@@ -185,14 +175,14 @@ L_switches5:
 	BSF        _oldbpmdown+0, BitPos(_oldbpmdown+0)
 ;ventilator.c,106 :: 		}
 L_switches8:
-;ventilator.c,107 :: 		if (oldbpmdown && Button(&PORTB, 7, 100, 1)) {   // Detect zero-to-one transition
+;ventilator.c,107 :: 		if (oldbpmdown && Button(&PORTB, 7, 1, 1)) {   // Detect zero-to-one transition
 	BTFSS      _oldbpmdown+0, BitPos(_oldbpmdown+0)
 	GOTO       L_switches11
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      7
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	MOVLW      1
 	MOVWF      FARG_Button_active_state+0
@@ -200,19 +190,9 @@ L_switches8:
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches11
-L__switches116:
+L__switches110:
 ;ventilator.c,108 :: 		oldbpmdown = 0;                           // Update flag
 	BCF        _oldbpmdown+0, BitPos(_oldbpmdown+0)
-;ventilator.c,109 :: 		Sound_Play(1318, 50);
-	MOVLW      38
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      5
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      50
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
 ;ventilator.c,111 :: 		bpmv--;                                      //decrement bpm value
 	MOVLW      1
 	SUBWF      _bpmv+0, 1
@@ -222,10 +202,10 @@ L__switches116:
 	MOVF       _bpmv+1, 0
 	SUBLW      0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches126
+	GOTO       L__switches120
 	MOVF       _bpmv+0, 0
 	SUBLW      16
-L__switches126:
+L__switches120:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches12
 ;ventilator.c,113 :: 		bpmv=16;
@@ -239,10 +219,10 @@ L_switches12:
 	MOVLW      0
 	SUBWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches127
+	GOTO       L__switches121
 	MOVLW      12
 	SUBWF      _bpmv+0, 0
-L__switches127:
+L__switches121:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches13
 ;ventilator.c,116 :: 		bpmv=12;
@@ -254,12 +234,12 @@ L__switches127:
 L_switches13:
 ;ventilator.c,120 :: 		}
 L_switches11:
-;ventilator.c,125 :: 		if (Button(&PORTB, 4, 100, 0)) {               // Detect logical zero
+;ventilator.c,125 :: 		if (Button(&PORTB, 4, 1, 0)) {               // Detect logical zero
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      4
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
@@ -270,14 +250,14 @@ L_switches11:
 	BSF        _oldvolup+0, BitPos(_oldvolup+0)
 ;ventilator.c,127 :: 		}
 L_switches14:
-;ventilator.c,128 :: 		if (oldvolup && Button(&PORTB, 4, 100, 1)) {   // Detect zero-to-one transition
+;ventilator.c,128 :: 		if (oldvolup && Button(&PORTB, 4, 1, 1)) {   // Detect zero-to-one transition
 	BTFSS      _oldvolup+0, BitPos(_oldvolup+0)
 	GOTO       L_switches17
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      4
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	MOVLW      1
 	MOVWF      FARG_Button_active_state+0
@@ -285,19 +265,9 @@ L_switches14:
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches17
-L__switches115:
+L__switches109:
 ;ventilator.c,129 :: 		oldvolup = 0;                    // Update flag
 	BCF        _oldvolup+0, BitPos(_oldvolup+0)
-;ventilator.c,130 :: 		Sound_Play(1000, 100);
-	MOVLW      232
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      3
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      100
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
 ;ventilator.c,131 :: 		vol=vol+50;              //increment volume level by 50
 	MOVLW      50
 	ADDWF      _vol+0, 0
@@ -314,10 +284,10 @@ L__switches115:
 	MOVF       R1+1, 0
 	SUBLW      2
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches128
+	GOTO       L__switches122
 	MOVF       R1+0, 0
 	SUBLW      38
-L__switches128:
+L__switches122:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches18
 ;ventilator.c,133 :: 		vol=550;
@@ -331,10 +301,10 @@ L_switches18:
 	MOVLW      1
 	SUBWF      _vol+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches129
+	GOTO       L__switches123
 	MOVLW      194
 	SUBWF      _vol+0, 0
-L__switches129:
+L__switches123:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches19
 ;ventilator.c,136 :: 		vol=450;
@@ -346,12 +316,12 @@ L__switches129:
 L_switches19:
 ;ventilator.c,139 :: 		}
 L_switches17:
-;ventilator.c,141 :: 		if (Button(&PORTB, 5, 100, 0)) {               // Detect logical zero
+;ventilator.c,141 :: 		if (Button(&PORTB, 5, 1, 0)) {               // Detect logical zero
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      5
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
@@ -362,14 +332,14 @@ L_switches17:
 	BSF        _oldvoldown+0, BitPos(_oldvoldown+0)
 ;ventilator.c,143 :: 		}
 L_switches20:
-;ventilator.c,144 :: 		if (oldvoldown && Button(&PORTB, 5, 100, 1)) {   // Detect zero-to-one transition
+;ventilator.c,144 :: 		if (oldvoldown && Button(&PORTB, 5, 1, 1)) {   // Detect zero-to-one transition
 	BTFSS      _oldvoldown+0, BitPos(_oldvoldown+0)
 	GOTO       L_switches23
 	MOVLW      PORTB+0
 	MOVWF      FARG_Button_port+0
 	MOVLW      5
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	MOVLW      1
 	MOVWF      FARG_Button_active_state+0
@@ -377,19 +347,9 @@ L_switches20:
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches23
-L__switches114:
+L__switches108:
 ;ventilator.c,145 :: 		oldvoldown = 0;                                   // Update flag
 	BCF        _oldvoldown+0, BitPos(_oldvoldown+0)
-;ventilator.c,146 :: 		Sound_Play(1000, 100);
-	MOVLW      232
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      3
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      100
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
 ;ventilator.c,147 :: 		vol=vol-50;                                         //decrement volume level
 	MOVLW      50
 	SUBWF      _vol+0, 0
@@ -407,10 +367,10 @@ L__switches114:
 	MOVF       R1+1, 0
 	SUBLW      2
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches130
+	GOTO       L__switches124
 	MOVF       R1+0, 0
 	SUBLW      38
-L__switches130:
+L__switches124:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches24
 ;ventilator.c,149 :: 		vol=550;
@@ -424,10 +384,10 @@ L_switches24:
 	MOVLW      1
 	SUBWF      _vol+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches131
+	GOTO       L__switches125
 	MOVLW      194
 	SUBWF      _vol+0, 0
-L__switches131:
+L__switches125:
 	BTFSC      STATUS+0, 0
 	GOTO       L_switches25
 ;ventilator.c,152 :: 		vol=450;
@@ -439,7 +399,7 @@ L__switches131:
 L_switches25:
 ;ventilator.c,156 :: 		}
 L_switches23:
-;ventilator.c,159 :: 		if ( !startstatus  && Button(&PORTC, 6, 100, 0)) {               // Detect logical zero
+;ventilator.c,159 :: 		if ( !startstatus  && Button(&PORTC, 6, 1, 0)) {               // Detect logical zero
 	MOVF       _startstatus+0, 0
 	IORWF      _startstatus+1, 0
 	BTFSS      STATUS+0, 2
@@ -448,24 +408,14 @@ L_switches23:
 	MOVWF      FARG_Button_port+0
 	MOVLW      6
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches28
-L__switches113:
-;ventilator.c,160 :: 		Sound_Play(1000, 100);                         //play alarm
-	MOVLW      232
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      3
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      100
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
+L__switches107:
 ;ventilator.c,162 :: 		startstatus = 1;                              // Update flag
 	MOVLW      1
 	MOVWF      _startstatus+0
@@ -473,7 +423,7 @@ L__switches113:
 	MOVWF      _startstatus+1
 ;ventilator.c,163 :: 		}
 L_switches28:
-;ventilator.c,164 :: 		if (startstatus && Button(&PORTC, 7, 100, 0)) {   // Detect logical zero
+;ventilator.c,164 :: 		if (startstatus && Button(&PORTC, 7, 1, 0)) {   // Detect logical zero
 	MOVF       _startstatus+0, 0
 	IORWF      _startstatus+1, 0
 	BTFSC      STATUS+0, 2
@@ -482,24 +432,14 @@ L_switches28:
 	MOVWF      FARG_Button_port+0
 	MOVLW      7
 	MOVWF      FARG_Button_pin+0
-	MOVLW      100
+	MOVLW      1
 	MOVWF      FARG_Button_time_ms+0
 	CLRF       FARG_Button_active_state+0
 	CALL       _Button+0
 	MOVF       R0+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches31
-L__switches112:
-;ventilator.c,165 :: 		Sound_Play(500, 100);                         //play alarm
-	MOVLW      244
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      100
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
+L__switches106:
 ;ventilator.c,167 :: 		startstatus = 0;               // Update flag
 	CLRF       _startstatus+0
 	CLRF       _startstatus+1
@@ -557,28 +497,28 @@ L_switches32:
 	MOVF       _vol+1, 0
 	XORLW      1
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches132
+	GOTO       L__switches126
 	MOVLW      194
 	XORWF      _vol+0, 0
-L__switches132:
+L__switches126:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches34
 	MOVF       _vol+1, 0
 	XORLW      1
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches133
+	GOTO       L__switches127
 	MOVLW      244
 	XORWF      _vol+0, 0
-L__switches133:
+L__switches127:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches35
 	MOVF       _vol+1, 0
 	XORLW      2
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches134
+	GOTO       L__switches128
 	MOVLW      38
 	XORWF      _vol+0, 0
-L__switches134:
+L__switches128:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches36
 L_switches33:
@@ -694,46 +634,46 @@ L_switches37:
 	MOVLW      0
 	XORWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches135
+	GOTO       L__switches129
 	MOVLW      12
 	XORWF      _bpmv+0, 0
-L__switches135:
+L__switches129:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches39
 	MOVLW      0
 	XORWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches136
+	GOTO       L__switches130
 	MOVLW      13
 	XORWF      _bpmv+0, 0
-L__switches136:
+L__switches130:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches40
 	MOVLW      0
 	XORWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches137
+	GOTO       L__switches131
 	MOVLW      14
 	XORWF      _bpmv+0, 0
-L__switches137:
+L__switches131:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches41
 	MOVLW      0
 	XORWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches138
+	GOTO       L__switches132
 	MOVLW      15
 	XORWF      _bpmv+0, 0
-L__switches138:
+L__switches132:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches42
 	MOVLW      0
 	XORWF      _bpmv+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__switches139
+	GOTO       L__switches133
 	MOVLW      16
 	XORWF      _bpmv+0, 0
-L__switches139:
+L__switches133:
 	BTFSC      STATUS+0, 2
 	GOTO       L_switches43
 L_switches38:
@@ -843,7 +783,7 @@ _Interrupt:
 L_Interrupt48:
 ;ventilator.c,289 :: 		}
 L_end_Interrupt:
-L__Interrupt143:
+L__Interrupt137:
 	MOVF       ___savePCLATH+0, 0
 	MOVWF      PCLATH+0
 	SWAPF      ___saveSTATUS+0, 0
@@ -873,31 +813,39 @@ L_end_millis:
 _main:
 
 ;ventilator.c,302 :: 		void main()
-;ventilator.c,304 :: 		PORTB=0;  // set portB as digital
+;ventilator.c,305 :: 		ADCON1 = 0x80;
+	MOVLW      128
+	MOVWF      ADCON1+0
+;ventilator.c,307 :: 		TRISA  = 0xFF;              // PORTA is input
+	MOVLW      255
+	MOVWF      TRISA+0
+;ventilator.c,312 :: 		PORTB=0;  // set portB as digital
 	CLRF       PORTB+0
-;ventilator.c,305 :: 		TRISB=0xf0;  // set portB input/outputs
+;ventilator.c,313 :: 		TRISB=0xf0;  // set portB input/outputs
 	MOVLW      240
 	MOVWF      TRISB+0
-;ventilator.c,306 :: 		PORTC=0;  // set portC as digital
+;ventilator.c,314 :: 		OPTION_REG.F7=0;
+	BCF        OPTION_REG+0, 7
+;ventilator.c,315 :: 		PORTC=0;  // set portC as digital
 	CLRF       PORTC+0
-;ventilator.c,307 :: 		TRISC=0xff;  // set portC as inputs
+;ventilator.c,316 :: 		TRISC=0xff;  // set portC as inputs
 	MOVLW      255
 	MOVWF      TRISC+0
-;ventilator.c,308 :: 		PORTD=0;  // set portD as digital
+;ventilator.c,317 :: 		PORTD=0;  // set portD as digital
 	CLRF       PORTD+0
-;ventilator.c,309 :: 		TRISD=0x00;  // set portD as outputs
+;ventilator.c,318 :: 		TRISD=0x00;  // set portD as outputs
 	CLRF       TRISD+0
-;ventilator.c,310 :: 		InitTimer0();//inica conte timer cada milisegundo
+;ventilator.c,319 :: 		InitTimer0();//inica conte timer cada milisegundo
 	CALL       _InitTimer0+0
-;ventilator.c,313 :: 		Sound_Init(&PORTD, 2);
+;ventilator.c,322 :: 		Sound_Init(&PORTD, 2);
 	MOVLW      PORTD+0
 	MOVWF      FARG_Sound_Init_snd_port+0
 	MOVLW      2
 	MOVWF      FARG_Sound_Init_snd_pin+0
 	CALL       _Sound_Init+0
-;ventilator.c,315 :: 		selftest();//do self test
+;ventilator.c,324 :: 		selftest();//do self test
 	CALL       _selftest+0
-;ventilator.c,316 :: 		Delay_ms(100);
+;ventilator.c,325 :: 		Delay_ms(100);
 	MOVLW      3
 	MOVWF      R11+0
 	MOVLW      138
@@ -913,11 +861,11 @@ L_main49:
 	GOTO       L_main49
 	NOP
 	NOP
-;ventilator.c,317 :: 		startl=0;
+;ventilator.c,326 :: 		startl=0;
 	BCF        PORTD+0, 4
-;ventilator.c,318 :: 		testl=0;
+;ventilator.c,327 :: 		testl=0;
 	BCF        PORTD+0, 3
-;ventilator.c,319 :: 		Delay_ms(100);
+;ventilator.c,328 :: 		Delay_ms(100);
 	MOVLW      3
 	MOVWF      R11+0
 	MOVLW      138
@@ -933,7 +881,7 @@ L_main50:
 	GOTO       L_main50
 	NOP
 	NOP
-;ventilator.c,321 :: 		time1=millis();
+;ventilator.c,330 :: 		time1=millis();
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      _time1+0
@@ -943,18 +891,190 @@ L_main50:
 	MOVWF      _time1+2
 	MOVF       R0+3, 0
 	MOVWF      _time1+3
-;ventilator.c,322 :: 		while(1){
+;ventilator.c,331 :: 		while(1){
 L_main51:
-;ventilator.c,324 :: 		switches();
+;ventilator.c,333 :: 		switches();
 	CALL       _switches+0
-;ventilator.c,327 :: 		s2v=1;
+;ventilator.c,336 :: 		s2v=1;
 	BSF        PORTD+0, 5
-;ventilator.c,328 :: 		dcv1=1;
+;ventilator.c,337 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,329 :: 		for(i=0;i<count;i++){
+;ventilator.c,338 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
 L_main53:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main140
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main140:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main54
+;ventilator.c,340 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,341 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,338 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,342 :: 		}
+	GOTO       L_main53
+L_main54:
+;ventilator.c,343 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main56:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main141
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main141:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main57
+;ventilator.c,346 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,343 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,347 :: 		}
+	GOTO       L_main56
+L_main57:
+;ventilator.c,349 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main59:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main142
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main142:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main60
+;ventilator.c,351 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,352 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,349 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,353 :: 		}
+	GOTO       L_main59
+L_main60:
+;ventilator.c,354 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main62:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main143
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main143:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main63
+;ventilator.c,356 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,357 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,354 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,358 :: 		}
+	GOTO       L_main62
+L_main63:
+;ventilator.c,359 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main65:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main144
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main144:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main66
+;ventilator.c,361 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,362 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,359 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,363 :: 		}
+	GOTO       L_main65
+L_main66:
+;ventilator.c,364 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main68:
+	MOVF       _count+1, 0
+	SUBWF      _i+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main145
+	MOVF       _count+0, 0
+	SUBWF      _i+0, 0
+L__main145:
+	BTFSC      STATUS+0, 0
+	GOTO       L_main69
+;ventilator.c,366 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,367 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,364 :: 		for(i=0;i<count;i++){
+	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
+;ventilator.c,368 :: 		}
+	GOTO       L_main68
+L_main69:
+;ventilator.c,369 :: 		for(i=0;i<count;i++){
+	CLRF       _i+0
+	CLRF       _i+1
+L_main71:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -963,20 +1083,28 @@ L_main53:
 	SUBWF      _i+0, 0
 L__main146:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main54
-;ventilator.c,331 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,329 :: 		for(i=0;i<count;i++){
+	GOTO       L_main72
+;ventilator.c,371 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,372 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,369 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,332 :: 		}
-	GOTO       L_main53
-L_main54:
-;ventilator.c,333 :: 		for(i=0;i<count;i++){
+;ventilator.c,373 :: 		}
+	GOTO       L_main71
+L_main72:
+;ventilator.c,374 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main56:
+L_main74:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -985,20 +1113,28 @@ L_main56:
 	SUBWF      _i+0, 0
 L__main147:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main57
-;ventilator.c,335 :: 		dcv1=1;
+	GOTO       L_main75
+;ventilator.c,376 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,377 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,333 :: 		for(i=0;i<count;i++){
+;ventilator.c,374 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,336 :: 		}
-	GOTO       L_main56
-L_main57:
-;ventilator.c,337 :: 		for(i=0;i<count;i++){
+;ventilator.c,378 :: 		}
+	GOTO       L_main74
+L_main75:
+;ventilator.c,379 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main59:
+L_main77:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1007,20 +1143,28 @@ L_main59:
 	SUBWF      _i+0, 0
 L__main148:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main60
-;ventilator.c,339 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,337 :: 		for(i=0;i<count;i++){
+	GOTO       L_main78
+;ventilator.c,381 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,382 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,379 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,340 :: 		}
-	GOTO       L_main59
-L_main60:
-;ventilator.c,341 :: 		for(i=0;i<count;i++){
+;ventilator.c,383 :: 		}
+	GOTO       L_main77
+L_main78:
+;ventilator.c,384 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main62:
+L_main80:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1029,20 +1173,28 @@ L_main62:
 	SUBWF      _i+0, 0
 L__main149:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main63
-;ventilator.c,343 :: 		dcv1=1;
+	GOTO       L_main81
+;ventilator.c,386 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,387 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,341 :: 		for(i=0;i<count;i++){
+;ventilator.c,384 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,344 :: 		}
-	GOTO       L_main62
-L_main63:
-;ventilator.c,345 :: 		for(i=0;i<count;i++){
+;ventilator.c,388 :: 		}
+	GOTO       L_main80
+L_main81:
+;ventilator.c,389 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main65:
+L_main83:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1051,20 +1203,28 @@ L_main65:
 	SUBWF      _i+0, 0
 L__main150:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main66
-;ventilator.c,347 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,345 :: 		for(i=0;i<count;i++){
+	GOTO       L_main84
+;ventilator.c,391 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,392 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,389 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,348 :: 		}
-	GOTO       L_main65
-L_main66:
-;ventilator.c,349 :: 		for(i=0;i<count;i++){
+;ventilator.c,393 :: 		}
+	GOTO       L_main83
+L_main84:
+;ventilator.c,394 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main68:
+L_main86:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1073,20 +1233,28 @@ L_main68:
 	SUBWF      _i+0, 0
 L__main151:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main69
-;ventilator.c,351 :: 		dcv1=1;
+	GOTO       L_main87
+;ventilator.c,396 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,397 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,349 :: 		for(i=0;i<count;i++){
+;ventilator.c,394 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,352 :: 		}
-	GOTO       L_main68
-L_main69:
-;ventilator.c,353 :: 		for(i=0;i<count;i++){
+;ventilator.c,398 :: 		}
+	GOTO       L_main86
+L_main87:
+;ventilator.c,399 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main71:
+L_main89:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1095,20 +1263,28 @@ L_main71:
 	SUBWF      _i+0, 0
 L__main152:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main72
-;ventilator.c,355 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,353 :: 		for(i=0;i<count;i++){
+	GOTO       L_main90
+;ventilator.c,401 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,402 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,399 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,356 :: 		}
-	GOTO       L_main71
-L_main72:
-;ventilator.c,357 :: 		for(i=0;i<count;i++){
+;ventilator.c,403 :: 		}
+	GOTO       L_main89
+L_main90:
+;ventilator.c,404 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main74:
+L_main92:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1117,20 +1293,28 @@ L_main74:
 	SUBWF      _i+0, 0
 L__main153:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main75
-;ventilator.c,359 :: 		dcv1=1;
+	GOTO       L_main93
+;ventilator.c,406 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,407 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,357 :: 		for(i=0;i<count;i++){
+;ventilator.c,404 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,360 :: 		}
-	GOTO       L_main74
-L_main75:
-;ventilator.c,361 :: 		for(i=0;i<count;i++){
+;ventilator.c,408 :: 		}
+	GOTO       L_main92
+L_main93:
+;ventilator.c,409 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main77:
+L_main95:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1139,20 +1323,28 @@ L_main77:
 	SUBWF      _i+0, 0
 L__main154:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main78
-;ventilator.c,363 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,361 :: 		for(i=0;i<count;i++){
+	GOTO       L_main96
+;ventilator.c,411 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,412 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,409 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,364 :: 		}
-	GOTO       L_main77
-L_main78:
-;ventilator.c,365 :: 		for(i=0;i<count;i++){
+;ventilator.c,413 :: 		}
+	GOTO       L_main95
+L_main96:
+;ventilator.c,414 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main80:
+L_main98:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1161,20 +1353,28 @@ L_main80:
 	SUBWF      _i+0, 0
 L__main155:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main81
-;ventilator.c,367 :: 		dcv1=1;
+	GOTO       L_main99
+;ventilator.c,416 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,417 :: 		dcv1=1;
 	BSF        PORTD+0, 0
-;ventilator.c,365 :: 		for(i=0;i<count;i++){
+;ventilator.c,414 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,368 :: 		}
-	GOTO       L_main80
-L_main81:
-;ventilator.c,369 :: 		for(i=0;i<count;i++){
+;ventilator.c,418 :: 		}
+	GOTO       L_main98
+L_main99:
+;ventilator.c,419 :: 		for(i=0;i<count;i++){
 	CLRF       _i+0
 	CLRF       _i+1
-L_main83:
+L_main101:
 	MOVF       _count+1, 0
 	SUBWF      _i+1, 0
 	BTFSS      STATUS+0, 2
@@ -1183,192 +1383,25 @@ L_main83:
 	SUBWF      _i+0, 0
 L__main156:
 	BTFSC      STATUS+0, 0
-	GOTO       L_main84
-;ventilator.c,371 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,369 :: 		for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,372 :: 		} for(i=0;i<count;i++){
-	GOTO       L_main83
-L_main84:
-	CLRF       _i+0
-	CLRF       _i+1
-L_main86:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main157
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main157:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main87
-;ventilator.c,374 :: 		dcv1=1;
-	BSF        PORTD+0, 0
-;ventilator.c,372 :: 		} for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,375 :: 		}
-	GOTO       L_main86
-L_main87:
-;ventilator.c,376 :: 		for(i=0;i<count;i++){
-	CLRF       _i+0
-	CLRF       _i+1
-L_main89:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main158
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main158:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main90
-;ventilator.c,378 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,376 :: 		for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,379 :: 		} for(i=0;i<count;i++){
-	GOTO       L_main89
-L_main90:
-	CLRF       _i+0
-	CLRF       _i+1
-L_main92:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main159
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main159:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main93
-;ventilator.c,381 :: 		dcv1=1;
-	BSF        PORTD+0, 0
-;ventilator.c,379 :: 		} for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,382 :: 		} for(i=0;i<count;i++){
-	GOTO       L_main92
-L_main93:
-	CLRF       _i+0
-	CLRF       _i+1
-L_main95:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main160
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main160:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main96
-;ventilator.c,384 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,382 :: 		} for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,385 :: 		}
-	GOTO       L_main95
-L_main96:
-;ventilator.c,386 :: 		for(i=0;i<count;i++){
-	CLRF       _i+0
-	CLRF       _i+1
-L_main98:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main161
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main161:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main99
-;ventilator.c,388 :: 		dcv1=1;
-	BSF        PORTD+0, 0
-;ventilator.c,386 :: 		for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,389 :: 		}
-	GOTO       L_main98
-L_main99:
-;ventilator.c,390 :: 		for(i=0;i<count;i++){
-	CLRF       _i+0
-	CLRF       _i+1
-L_main101:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main162
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main162:
-	BTFSC      STATUS+0, 0
 	GOTO       L_main102
-;ventilator.c,392 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,390 :: 		for(i=0;i<count;i++){
+;ventilator.c,421 :: 		adc = ADC_Read(1);
+	MOVLW      1
+	MOVWF      FARG_ADC_Read_channel+0
+	CALL       _ADC_Read+0
+	MOVF       R0+0, 0
+	MOVWF      _adc+0
+	MOVF       R0+1, 0
+	MOVWF      _adc+1
+;ventilator.c,422 :: 		dcv1=1;
+	BSF        PORTD+0, 0
+;ventilator.c,419 :: 		for(i=0;i<count;i++){
 	INCF       _i+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       _i+1, 1
-;ventilator.c,393 :: 		} for(i=0;i<count;i++){
+;ventilator.c,423 :: 		}
 	GOTO       L_main101
 L_main102:
-	CLRF       _i+0
-	CLRF       _i+1
-L_main104:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main163
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main163:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main105
-;ventilator.c,395 :: 		dcv1=1;
-	BSF        PORTD+0, 0
-;ventilator.c,393 :: 		} for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,396 :: 		} for(i=0;i<count;i++){
-	GOTO       L_main104
-L_main105:
-	CLRF       _i+0
-	CLRF       _i+1
-L_main107:
-	MOVF       _count+1, 0
-	SUBWF      _i+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__main164
-	MOVF       _count+0, 0
-	SUBWF      _i+0, 0
-L__main164:
-	BTFSC      STATUS+0, 0
-	GOTO       L_main108
-;ventilator.c,398 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,396 :: 		} for(i=0;i<count;i++){
-	INCF       _i+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _i+1, 1
-;ventilator.c,399 :: 		}
-	GOTO       L_main107
-L_main108:
-;ventilator.c,401 :: 		s2v=0;
-	BCF        PORTD+0, 5
-;ventilator.c,402 :: 		dcv1=0;
-	BCF        PORTD+0, 0
-;ventilator.c,406 :: 		if (millis()-time1>=100)
+;ventilator.c,426 :: 		if (millis()-time1>=100)
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      R4+0
@@ -1395,25 +1428,25 @@ L_main108:
 	MOVLW      0
 	SUBWF      R4+3, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__main165
+	GOTO       L__main157
 	MOVLW      0
 	SUBWF      R4+2, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__main165
+	GOTO       L__main157
 	MOVLW      0
 	SUBWF      R4+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__main165
+	GOTO       L__main157
 	MOVLW      100
 	SUBWF      R4+0, 0
-L__main165:
+L__main157:
 	BTFSS      STATUS+0, 0
-	GOTO       L_main110
-;ventilator.c,408 :: 		testl=1  ;
+	GOTO       L_main104
+;ventilator.c,428 :: 		testl=1  ;
 	BSF        PORTD+0, 3
-;ventilator.c,409 :: 		startl=0 ;
+;ventilator.c,429 :: 		startl=0 ;
 	BCF        PORTD+0, 4
-;ventilator.c,410 :: 		time1=millis();
+;ventilator.c,430 :: 		time1=millis();
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      _time1+0
@@ -1423,14 +1456,14 @@ L__main165:
 	MOVWF      _time1+2
 	MOVF       R0+3, 0
 	MOVWF      _time1+3
-;ventilator.c,411 :: 		}
-	GOTO       L_main111
-L_main110:
-;ventilator.c,414 :: 		testl=0  ;
+;ventilator.c,431 :: 		}
+	GOTO       L_main105
+L_main104:
+;ventilator.c,434 :: 		testl=0  ;
 	BCF        PORTD+0, 3
-;ventilator.c,415 :: 		startl=1 ;
+;ventilator.c,435 :: 		startl=1 ;
 	BSF        PORTD+0, 4
-;ventilator.c,416 :: 		time1=millis();
+;ventilator.c,436 :: 		time1=millis();
 	CALL       _millis+0
 	MOVF       R0+0, 0
 	MOVWF      _time1+0
@@ -1440,11 +1473,11 @@ L_main110:
 	MOVWF      _time1+2
 	MOVF       R0+3, 0
 	MOVWF      _time1+3
-;ventilator.c,417 :: 		}
-L_main111:
-;ventilator.c,418 :: 		}
+;ventilator.c,437 :: 		}
+L_main105:
+;ventilator.c,438 :: 		}
 	GOTO       L_main51
-;ventilator.c,419 :: 		}
+;ventilator.c,439 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main

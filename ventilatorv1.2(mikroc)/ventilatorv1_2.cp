@@ -1,12 +1,7 @@
-#line 1 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
-#line 45 "D:/ventilator project/ventilatorv1(mikroc)/ventilator.c"
+#line 1 "D:/ventilator project/ventilatorv1.2(mikroc)/ventilatorv1_2.c"
+#line 44 "D:/ventilator project/ventilatorv1.2(mikroc)/ventilatorv1_2.c"
 unsigned int bpmv=12;
 unsigned int vol =450;
-unsigned int i =0;
-unsigned int count =100;
-
-
-
 unsigned int led[8] = {1,0,0,0,0,1,0,0};
 
 bit oldbpmup;
@@ -14,6 +9,59 @@ bit oldbpmdown;
 bit oldvolup;
 bit oldvoldown;
 unsigned int startstatus = 0;
+
+unsigned int s9=0;
+unsigned int s10=0;
+unsigned int s4=0;
+unsigned int p1=0;
+unsigned int p2=0;
+unsigned int p3=0;
+unsigned int p_1=0;
+unsigned int p_2=0;
+unsigned int temperature=0;
+
+
+
+unsigned long millis_count=0;
+unsigned int tempmillis=0;
+
+
+
+
+
+
+
+
+void InitTimer0(){
+ OPTION_REG = 0x84;
+ TMR0 = 100;
+ INTCON = 0xA0;
+}
+
+void Interrupt(){
+ if (TMR0IF_bit){
+ TMR0IF_bit = 0;
+ TMR0 = 100;
+
+ millis_count++;
+
+ }
+
+}
+
+unsigned long millis()
+{
+ return(millis_count);
+}
+
+
+void alarm(int tm){
+ int alarm_millis=millis();
+ while(millis()-alarm_millis<=tm){
+  PORTD.F2 =1;
+ }
+  PORTD.F2 =0;
+}
 
 
 void shiftdata595(int _shiftdata[])
@@ -65,7 +113,6 @@ void switches(){
  if (oldbpmdown && Button(&PORTB, 7, 1, 1)) {
  oldbpmdown = 0;
 
-
  bpmv--;
  if(bpmv>16){
  bpmv=16;
@@ -116,12 +163,12 @@ void switches(){
 
  if ( !startstatus && Button(&PORTC, 6, 1, 0)) {
 
-
+  PORTD.F4 =1;
  startstatus = 1;
  }
  if (startstatus && Button(&PORTC, 7, 1, 0)) {
 
-
+  PORTD.F4 =0;
  startstatus = 0;
  }
 
@@ -205,193 +252,65 @@ void selftest(){
 
 if(1){
  PORTD.F3 =1;
-Sound_Play(500, 500);
-Sound_Play(1000, 500);
+
 }
 else
 while(1){
  PORTD.F3 =0;
-Sound_Play(1000, 500);
+
  PORTD.F3 =1;
-Sound_Play(500, 500);
-}
-}
-
-
-
-
-
-unsigned long millis_count=0;
-
-unsigned long time1,time2;
-
-
-
-
-
-void InitTimer0(){
- OPTION_REG = 0x84;
- TMR0 = 100;
- INTCON = 0xA0;
-}
-
-void Interrupt(){
- if (TMR0IF_bit){
- TMR0IF_bit = 0;
- TMR0 = 100;
-
- millis_count++;
-
- }
 
 }
+}
 
-unsigned long millis()
-{
- return(millis_count);
+void read_sensor_data(){
+ s4=ADC_Read(0);
+ delay_ms(100);
+ s9= ADC_Read(1);
+ delay_ms(100);
+ s10 = ADC_Read(2);
+ delay_ms(100);
+ p1 = ADC_Read(3);
+ delay_ms(100);
+ p2 = ADC_Read(4);
+ delay_ms(100);
+ p3 = ADC_Read(5);
+ delay_ms(100);
+ p_1 = ADC_Read(6);
+ delay_ms(100);
+ p_2 = ADC_Read(7);
+ delay_ms(100);
 }
 
 
- unsigned int adc;
 
 
+int tempt=0;
 
 
 void main()
 {
 
 ADCON1 = 0x80;
-
- TRISA = 0xFF;
-
-
-
-
+TRISA = 0xFF;
 PORTB=0;
 TRISB=0xf0;
-OPTION_REG.F7=0;
 PORTC=0;
 TRISC=0xff;
-PORTD=0;
+PORTD=0x00;
 TRISD=0x00;
-InitTimer0();
+TRISE = 0x07;
+ADC_Init();
 
 
-Sound_Init(&PORTD, 2);
+ADC_Init();
 
 selftest();
-Delay_ms(100);
- PORTD.F4 =0;
- PORTD.F3 =0;
-Delay_ms(100);
 
-time1=millis();
 while(1){
-
+read_sensor_data();
 switches();
+delay_ms(100);
 
-
-  PORTD.F5 =1;
-  PORTD.F0 =1;
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
-
-  PORTD.F0 =1;
- }
-
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
- for(i=0;i<count;i++){
-
- adc = ADC_Read(1);
-  PORTD.F0 =1;
- }
-
-
- if (millis()-time1>=100)
- {
-  PORTD.F3 =1 ;
-  PORTD.F4 =0 ;
- time1=millis();
- }
- else
- {
-  PORTD.F3 =0 ;
-  PORTD.F4 =1 ;
- time1=millis();
- }
 }
 }

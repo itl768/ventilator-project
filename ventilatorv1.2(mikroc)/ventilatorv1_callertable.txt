@@ -1,0 +1,14 @@
+main
+	__CC2DW
+		____DoICP
+	ADC_Init
+	selftest
+	read_sensor_data
+		ADC_Read
+			Delay_22us
+	switches
+		Button
+			Delay_500us
+		shiftdata595
+		latch595
+Interrupt

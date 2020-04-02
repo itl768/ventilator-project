@@ -21,7 +21,6 @@ acken
 acken_bit
 ackstat
 ackstat_bit
-adc
 adc_get_sample
 adc_get_sample_ptr
 adc_init
@@ -48,6 +47,7 @@ adon
 adon_bit
 adresh
 adresl
+alarm
 b0
 b1
 b2
@@ -143,7 +143,6 @@ cmif
 cmif_bit
 comfrem
 compare_double
-count
 cren
 cren_bit
 csrc
@@ -230,7 +229,6 @@ go_done
 go_done_bit
 go_not_done
 go_not_done_bit
-i
 ibf
 ibf_bit
 ibf_trise_bit
@@ -307,7 +305,12 @@ oldvoldown
 oldvolup
 option_reg
 p
+p_1
+p_2
 p_bit
+p1
+p2
+p3
 pcfg0
 pcfg0_bit
 pcfg1
@@ -457,6 +460,7 @@ re1
 re1_bit
 re2
 re2_bit
+read_sensor_data
 read_write
 read_write_bit
 res032
@@ -472,6 +476,9 @@ rx9d
 rx9d_bit
 s
 s_bit
+s10
+s4
+s9
 sdiv3232l
 selftest
 sen
@@ -483,8 +490,6 @@ setiov3224
 shiftdata595
 smp
 smp_bit
-sound_init
-sound_play
 spbrg
 spen
 spen_bit
@@ -542,8 +547,9 @@ t2ckps0_bit
 t2ckps1
 t2ckps1_bit
 t2con
-time1
-time2
+temperature
+tempmillis
+tempt
 tmr0
 tmr0ie
 tmr0ie_bit

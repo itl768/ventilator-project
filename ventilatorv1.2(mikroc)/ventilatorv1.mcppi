@@ -1,12 +1,12 @@
 [DEVICE]
 Name=P16F877A
-Clock=20000000
+Clock=8000000
 [MEMORY_MODEL]
 Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=ventilator.c
+Value=ventilatorv1_2.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -16,7 +16,7 @@ Value=0
 [EEPROM_DEFINITION]
 Value=
 [FILES]
-File0=ventilator.c
+File0=ventilatorv1_2.c
 Count=1
 [BINARIES]
 Count=0
@@ -24,7 +24,7 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-File0=ventilator.c
+File0=ventilatorv1_2.c
 Count=1
 [EEPROM]
 Count=0
@@ -41,17 +41,16 @@ Count=0
 [PLDS]
 Count=0
 [Useses]
-File0=Button
-File1=Sound
-File2=ADC
-Count=3
+File0=ADC
+File1=Button
+Count=2
 [EXPANDED_NODES]
-Count=0
+0=ventilatorv1.mcppi
+Count=1
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
-2=ADC
-Count=3
+Count=2
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]
