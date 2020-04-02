@@ -2,13 +2,15 @@ main
 	__CC2DW
 		____DoICP
 	ADC_Init
+	InitTimer0
 	selftest
-	read_sensor_data
-		ADC_Read
-			Delay_22us
+	millis
+Interrupt
 	switches
 		Button
 			Delay_500us
 		shiftdata595
 		latch595
-Interrupt
+	read_sensor_data
+		ADC_Read
+			Delay_22us
