@@ -1,0 +1,16 @@
+main
+	__CC2DW
+interrupt
+	longword2double
+		NRM4032
+			SETFUN32
+			FIXSIGN32
+			SETFOV32
+			RES032
+	Div_32x32_FP
+		SETFDZ32
+		RES032
+		SETFOV32
+		SETFUN32
+	double2word
+		SETIOV3224

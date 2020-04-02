@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F45K22 -DL -O11111114 -fo8 -N"C:\Users\acer\Desktop\REAL\capture_test.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\acer\Desktop\REAL\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\acer\Desktop\REAL\" "capture_test.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Button.mcl"	 
+hint: 0	1139	Available RAM: 1515 [bytes], Available ROM: 32768 [bytes]	 
+diagnostics: 0	122	Compilation Started	capture_test.c
+diagnostics: 110	123	Compiled Successfully	capture_test.c
+diagnostics: 0	127	All files Compiled in 125 ms	 
+hint: 0	1144	Used RAM (bytes): 20 (1%)  Free RAM (bytes): 1495 (99%)	Used RAM (bytes): 20 (1%)  Free RAM (bytes): 1495 (99%)
+hint: 0	1144	Used ROM (bytes): 1590 (5%)  Free ROM (bytes): 31178 (95%)	Used ROM (bytes): 1590 (5%)  Free ROM (bytes): 31178 (95%)
+diagnostics: 0	125	Project Linked Successfully	capture_test.mcppi
+diagnostics: 0	128	Linked in 63 ms	 
+diagnostics: 0	129	Project 'capture_test.mcppi' completed: 203 ms	 
+diagnostics: 0	103	Finished successfully: 02 Apr 2020, 18:02:46	capture_test.mcppi
